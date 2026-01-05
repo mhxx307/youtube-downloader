@@ -85,10 +85,9 @@ function writeConfig(config) {
 
 async function ensureYtDlp() {
   // 1. Prefer yt-dlp binary shipped with app (electron/bin/yt-dlp.exe)
-  const baseDir = app.isPackaged
-    ? process.resourcesPath
-    : path.join(__dirname, '..');
-  const bundledPath = path.join(baseDir, 'electron', 'bin', YTDLP_FILE_NAME);
+  // In dev: __dirname = project/electron
+  // In packaged: __dirname = resources/app/electron
+  const bundledPath = path.join(__dirname, 'bin', YTDLP_FILE_NAME);
   if (fs.existsSync(bundledPath)) {
     return bundledPath;
   }
@@ -113,10 +112,9 @@ async function ensureYtDlp() {
 
 async function ensureFfmpeg() {
   // 1. Prefer ffmpeg binary shipped with app (electron/bin/ffmpeg.exe)
-  const baseDir = app.isPackaged
-    ? process.resourcesPath
-    : path.join(__dirname, '..');
-  const bundledPath = path.join(baseDir, 'electron', 'bin', FFMPEG_FILE_NAME);
+  // In dev: __dirname = project/electron
+  // In packaged: __dirname = resources/app/electron
+  const bundledPath = path.join(__dirname, 'bin', FFMPEG_FILE_NAME);
   if (fs.existsSync(bundledPath)) {
     return { path: bundledPath, status: 'ok' };
   }
