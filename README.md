@@ -1,11 +1,41 @@
 # YT Downloader
 
-Short notes:
+Electron-based YouTube downloader using `yt-dlp` and `ffmpeg`.
 
--   App: Electron + React (Vite). Download audio/video from YouTube using `yt-dlp` + `ffmpeg`.
+## Features
 
--   New feature: **Chọn định dạng xuất (container)** — in the UI you can now choose: **Giữ định dạng gốc**, **MP4**, **MKV**, **WEBM**. If you pick a container other than "Giữ định dạng gốc", the app uses `--recode-video` (requires `ffmpeg`).
+- Download audio only (MP3)
+- Download video only (no audio)
+- Download video + audio (merged with best quality)
+- Quality selection: Best, High (≤1080p), Medium (≤720p), Low (≤480p)
+- Remembers output folder for next time
 
--   If you don't have ffmpegdownload and extract `ffmpeg.exe` into `electron/bin` or install ffmpeg on PATH. (The automatic download script has been removed.)H.
+## Setup
 
--   Notes for packaging: make sure `yt-dlp` and `ffmpeg.exe` (if desired) are placed in `electron/bin` so they get included in the packaged app.
+### Development
+
+```bash
+npm install
+npm run electron:dev
+```
+
+### Build for Windows
+
+```bash
+npm run electron:build:win
+```
+
+The installer will be in `dist-electron/` folder.
+
+## Binary Files
+
+The app uses bundled binaries:
+- `electron/bin/yt-dlp.exe` - YouTube downloader
+- `electron/bin/ffmpeg.exe` - Audio/video processing
+
+Make sure both files are placed in `electron/bin/` before building. They will be automatically included in the packaged app.
+
+## Notes
+
+- The app saves your output folder preference in config file.
+- All npm dependencies are bundled in the installer - users don't need to install anything extra.
